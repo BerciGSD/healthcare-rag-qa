@@ -51,24 +51,24 @@ Implements a custom natural-language evaluation criteria judge to enforce medica
 ### **Module 4: CI/CD Pipeline Integration (** **ai_qa.yml** **)**  
 Automates local evaluation suites inside a GitHub Actions workflow (Healthcare RAG Quality & Safety CI) to block non-compliant PRs before production deployment.  
 ## **🚀 Getting Started & Running Locally**  
-1. **Clone the repository:**  
-2. git clone https://github.com/BerciGSD/healthcare-rag-qa.git  
-3. cd healthcare-rag-qa  
-4.    
-5. **Set up virtual environment & install dependencies:**  
-6. python3 -m venv venv  
-7. source venv/bin/activate  
-8. pip install --upgrade pip  
-9. pip install deepeval ollama pytest  
-10.    
-11. **Ensure Ollama is running with the evaluation model:**  
-12. ollama serve  
-13. ollama pull qwen2.5:7b  
-14.    
-15. **Run the test suites:**  
-16. deepeval test run test_rag_metrics.py  
-17. deepeval test run test_safety_eval.py  
-18.    
+**Clone the repository:**  
+1. git clone https://github.com/BerciGSD/healthcare-rag-qa.git  
+2. cd healthcare-rag-qa  
+      
+ **Set up virtual environment & install dependencies:**  
+3. python3 -m venv venv  
+4. source venv/bin/activate  
+5. pip install --upgrade pip  
+6. pip install deepeval ollama pytest  
+    
+**Ensure Ollama is running with the evaluation model:**  
+7. ollama serve  
+8. ollama pull qwen2.5:7b  
+    
+**Run the test suites:**  
+9. deepeval test run test_rag_metrics.py  
+10. deepeval test run test_safety_eval.py  
+   
 ## **🛡️ License**  
 This project is open-source and available under the [MIT License](file:///snap/onlyoffice-desktopeditors/1220/opt/onlyoffice/desktopeditors/editors/web-apps/apps/documenteditor/main/LICENSE "null").  
    
