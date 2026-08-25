@@ -52,22 +52,22 @@ Implements a custom natural-language evaluation criteria judge to enforce medica
 Automates local evaluation suites inside a GitHub Actions workflow (Healthcare RAG Quality & Safety CI) to block non-compliant PRs before production deployment.  
 ## **🚀 Getting Started & Running Locally**  
 **Clone the repository:**  
-1. git clone https://github.com/BerciGSD/healthcare-rag-qa.git  
-2. cd healthcare-rag-qa  
+git clone https://github.com/BerciGSD/healthcare-rag-qa.git  
+cd healthcare-rag-qa  
       
- **Set up virtual environment & install dependencies:**  
-3. python3 -m venv venv  
-4. source venv/bin/activate  
-5. pip install --upgrade pip  
-6. pip install deepeval ollama pytest  
+**Set up virtual environment & install dependencies:**  
+python3 -m venv venv  
+source venv/bin/activate  
+pip install --upgrade pip  
+pip install deepeval ollama pytest  
     
 **Ensure Ollama is running with the evaluation model:**  
-7. ollama serve  
-8. ollama pull qwen2.5:7b  
+ollama serve  
+ollama pull qwen2.5:7b  
     
 **Run the test suites:**  
-9. deepeval test run test_rag_metrics.py  
-10. deepeval test run test_safety_eval.py  
+deepeval test run test_rag_metrics.py  
+deepeval test run test_safety_eval.py  
    
 ## **🛡️ License**  
 This project is open-source and available under the [MIT License](file:///snap/onlyoffice-desktopeditors/1220/opt/onlyoffice/desktopeditors/editors/web-apps/apps/documenteditor/main/LICENSE "null").  
