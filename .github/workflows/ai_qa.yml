@@ -1,0 +1,40 @@
+﻿name: Healthcare RAG Quality & Safety CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  evaluate-rag:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install Dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install --upgrade pip
+        pip install deepeval ollama pytest
+
+    - name: Set up Ollama & Pull Model
+      run: |
+        curl -fsSL https://ollama.com/install.sh | sh
+        ollama serve &
+        sleep 5
+        ollama pull qwen2.5:7b
+
+    - name: Run DeepEval Test Suites
+      run: |
+        source venv/bin/activate
+        deepeval test run test_rag_metrics.py
+        deepeval test run test_safety_eval.py
