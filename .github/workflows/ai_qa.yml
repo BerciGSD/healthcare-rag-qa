@@ -1,40 +1,29 @@
-﻿name: Healthcare RAG Quality & Safety CI
+name: Healthcare RAG Quality & Safety CIon:workflow_dispatch: # Manual trigger from GitHub Actions tabNote: Automated triggers on push are paused for cloud runners without GPU support.push:branches: [ main, master ]jobs:evaluate-rag:runs-on: ubuntu-lateststeps:
+- name: Checkout Repository
+  uses: actions/checkout@v4
 
-on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
+- name: Set up Python 3.12
+  uses: actions/setup-python@v5
+  with:
+    python-version: '3.12'
 
-jobs:
-  evaluate-rag:
-    runs-on: ubuntu-latest
+- name: Install Dependencies
+  run: |
+    python -m venv venv
+    source venv/bin/activate
+    pip install --upgrade pip
+    pip install deepeval ollama pytest
 
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+- name: Set up Ollama & Pull Model
+  run: |
+    curl -fsSL https://ollama.com/install.sh | sh
+    ollama serve &
+    sleep 5
+    ollama pull qwen2.5:7b
 
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.12'
+- name: Run DeepEval Test Suites
+  run: |
+    source venv/bin/activate
+    deepeval test run test_rag_metrics.py
+    deepeval test run test_safety_eval.py
 
-    - name: Install Dependencies
-      run: |
-        python -m venv venv
-        source venv/bin/activate
-        pip install --upgrade pip
-        pip install deepeval ollama pytest
-
-    - name: Set up Ollama & Pull Model
-      run: |
-        curl -fsSL https://ollama.com/install.sh | sh
-        ollama serve &
-        sleep 5
-        ollama pull qwen2.5:7b
-
-    - name: Run DeepEval Test Suites
-      run: |
-        source venv/bin/activate
-        deepeval test run test_rag_metrics.py
-        deepeval test run test_safety_eval.py
